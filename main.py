@@ -37,7 +37,7 @@ p = pyaudio.PyAudio()
 
 def load_model():
     global tokenizer, model, punctuation_pipeline
-    access_token = "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"
+    access_token = "" #to complete here manually after requesting a HugginFace token
     model_id = "meta-llama/Meta-Llama-3-8B-Instruct"
     print("Loading model...")
     tokenizer_local = AutoTokenizer.from_pretrained(model_id, trust_remote_code=True, token=access_token)
