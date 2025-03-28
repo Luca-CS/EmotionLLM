@@ -6,6 +6,7 @@ import wave
 import speech_recognition as sr
 import torch
 from transformers import AutoTokenizer, AutoModelForCausalLM, pipeline as hf_pipeline
+from deepmultilingualpunctuation import PunctuationModel
 
 # Import the emotion functions from model.py
 from model import audio_to_emotion, encodage_label
@@ -51,8 +52,7 @@ def load_model():
     model = model_local
     print("Loading punctuation restoration model...")
     try:
-        punctuation_pipeline = hf_pipeline("text2text-generation", model="oliverguhr/fullstop-punctuation-multilang-base", use_auth_token=False)
-        print("Punctuation model loaded successfully.")
+        punctuation_pipeline = PunctuationModel()
     except Exception as e:
         print("Punctuation pipeline load failed:", e)
         punctuation_pipeline = None
@@ -97,7 +97,7 @@ def record_loop():
     
     # Restore punctuation using the punctuation pipeline
     if punctuation_pipeline is not None:
-        punctuated = punctuation_pipeline(transcript, max_length=128)[0]["generated_text"]
+        punctuated = punctuation_pipeline.restore_punctuation(transcript)
         transcript = punctuated
     
     # Update the transcript in the GUI (via the main thread)
