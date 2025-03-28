@@ -18,7 +18,6 @@ Before running the project, ensure that you have the following installed:
 - **pip**: Python's package installer. It is included by default in Python 3. Ensure it's up to date:
 
   ```bash
-  python -m ensurepip --upgrade
   python -m pip install --upgrade pip
   ```
 
@@ -90,11 +89,11 @@ Hugging Face is a platform that provides access to a wide range of pre-trained m
 
 2. **Using the Application**:
 
-   - **Input**: Provide an audio file as input. The system will process this file to recognize the emotion conveyed.
+   - **Input**: Click on the "Record Audio" button, then click again on "Stop recording" when done. The system will process this file to recognize the emotion conveyed.
 
    - **Processing**:
-     - The audio is transcribed into text with appropriate punctuation.
-     - The transcribed text is analyzed to detect the underlying emotion.
+     - The audio is transcribed into text.
+     - In the mean time, emotion is extracted from the audio file.
      - Based on the recognized emotion, the system generates a contextually relevant response.
 
    - **Output**: The generated response is displayed to the user.
