@@ -1,19 +1,18 @@
 # EmotionLLM
-Emotion Enhanced LLM Prompting (Audio RNN + Llama-8B API)
 
-# Emotion Recognition and Response Generation System
+## Emotion Recognition and Response Generation System
 
-## Abstract
+### Abstract
 
-This project presents an integrated system capable of recognizing emotions from audio inputs and generating contextually appropriate responses. The system leverages a combination of machine learning models, including an RNN trained on the IEMOCAP dataset for emotion recognition, a transcription pipeline for converting audio to text with proper punctuation, and the Llama 8B model for response generation. The application is designed to run locally, with certain models operating remotely via APIs, providing users with an interactive experience that combines speech emotion recognition with natural language processing capabilities.
+Welcome to **EmotionLLM**, an innovative system designed to recognize emotions from audio inputs and generate contextually appropriate responses. This project seamlessly integrates advanced machine learning models, including a Convolutional Neural Network (CNN) for emotion recognition, a transcription pipeline for converting audio to text with proper punctuation, and a locally cached Llama 8B model for response generation. The application provides an interactive experience that combines speech emotion recognition with natural language processing capabilities, all running efficiently on your local machine.
 
-## Getting Started
+### Getting Started
 
-### Prerequisites
+#### Prerequisites
 
-Before running the project, ensure that you have the following installed:
+Before diving into the project, ensure you have the following installed:
 
-- **Python 3.11.1**: The project is compatible with Python version 3.11.1. You can download it from the official Python website.
+- **Python 3.11.1**: The project is compatible with Python version 3.11.1. You can download it from the [official Python website](https://www.python.org/).
 
 - **pip**: Python's package installer. It is included by default in Python 3. Ensure it's up to date:
 
@@ -21,8 +20,7 @@ Before running the project, ensure that you have the following installed:
   python -m pip install --upgrade pip
   ```
 
-
-### Installation
+#### Installation
 
 1. **Clone the Repository**:
 
@@ -30,7 +28,6 @@ Before running the project, ensure that you have the following installed:
    git clone https://github.com/yourusername/emotion-recognition-response-system.git
    cd emotion-recognition-response-system
    ```
-
 
 2. **Install Dependencies**:
 
@@ -40,12 +37,11 @@ Before running the project, ensure that you have the following installed:
    pip install -r requirements.txt
    ```
 
-
    *Note*: The `requirements.txt` file includes all necessary libraries for the project. Ensure that all dependencies are installed correctly to avoid runtime issues.
 
 ### Hugging Face Access Token
 
-The project utilizes the Llama 8B model hosted on Hugging Face. To access this model, you need to create a Hugging Face access token.
+The project utilizes the Llama 8B model, which is cached locally between your desktop's VRAM and RAM for efficient access. To access this model, you need to create a Hugging Face access token.
 
 #### What is Hugging Face?
 
@@ -73,10 +69,9 @@ Hugging Face is a platform that provides access to a wide range of pre-trained m
    huggingface-cli login
    ```
 
-
    When prompted, enter your access token.
 
-## Running the Application
+### Running the Application
 
 1. **Launch the Application**:
 
@@ -86,26 +81,25 @@ Hugging Face is a platform that provides access to a wide range of pre-trained m
    python main.py
    ```
 
-
 2. **Using the Application**:
 
    - **Input**: Click on the "Record Audio" button, then click again on "Stop recording" when done. The system will process this file to recognize the emotion conveyed.
 
    - **Processing**:
      - The audio is transcribed into text.
-     - In the mean time, emotion is extracted from the audio file.
+     - In the meantime, emotion is extracted from the audio file.
      - Based on the recognized emotion, the system generates a contextually relevant response.
 
    - **Output**: The generated response is displayed to the user.
 
-## Models Involved
+### Models Involved
 
 The system integrates several models to achieve its functionality:
 
-1. **RNN Audio Model**:
+1. **CNN Audio Model**:
    - **Purpose**: Emotion recognition from audio inputs.
    - **Training Data**: Trained on the IEMOCAP dataset, which contains acted emotional speech.
-   - **Implementation**: Utilizes recurrent neural networks to analyze audio features and classify emotions.
+   - **Implementation**: Utilizes convolutional neural networks to analyze audio features and classify emotions. Loaded on the CPU to save space for the Llama 8B model.
 
 2. **Transcription Pipeline**:
    - **Purpose**: Convert audio input into text with proper punctuation.
@@ -113,20 +107,23 @@ The system integrates several models to achieve its functionality:
 
 3. **Llama 8B Model**:
    - **Purpose**: Generate responses based on the transcribed and emotion-analyzed text.
-   - **Implementation**: A large language model capable of producing coherent and contextually appropriate responses. Hosted on Hugging Face and accessed via their API.
+   - **Implementation**: A large language model capable of producing coherent and contextually appropriate responses. Cached locally for efficient access and execution.
 
-## Model Loading and Execution
+### Model Loading and Execution
 
 - **Local Execution**:
-  - The RNN audio model and transcription pipeline run locally on the user's machine.
+  - The CNN audio model and transcription pipeline run locally on the user's machine. The CNN model is loaded on the CPU to save space for the Llama 8B model.
   - These models are loaded into memory during the application's initialization and process the audio input directly.
 
-- **Remote Execution**:
-  - The Llama 8B model is hosted remotely on Hugging Face's servers.
-  - After local processing, the application sends the processed text to the Llama 8B model via the Hugging Face API to generate the response.
+- **Local Caching**:
+  - The Llama 8B model is cached locally between the desktop's VRAM and RAM.
+  - After local processing, the application leverages the cached Llama 8B model to generate responses, ensuring fast and efficient performance.
 
-This hybrid approach leverages local computation for initial processing and utilizes powerful remote models for complex language generation tasks, balancing performance and resource utilization.
+This hybrid approach leverages local computation for initial processing and utilizes powerful locally cached models for complex language generation tasks, balancing performance and resource utilization.
 
-## Notes
+### Notes
 
-- 
+- Ensure your system has sufficient VRAM and RAM to cache the Llama 8B model efficiently.
+- The application is designed to run on a local machine, providing a seamless and responsive user experience.
+
+---
