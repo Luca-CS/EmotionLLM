@@ -25,8 +25,7 @@ Before diving into the project, ensure you have the following installed:
 1. **Clone the Repository**:
 
    ```bash
-   git clone https://github.com/yourusername/emotion-recognition-response-system.git
-   cd emotion-recognition-response-system
+   git clone https://github.com/Luca-CS/EmotionLLM.git
    ```
 
 2. **Install Dependencies**:
