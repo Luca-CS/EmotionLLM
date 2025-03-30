@@ -100,7 +100,7 @@ def audio_to_emotion(input_data):
         input_data = [(torch.tensor(waveform), sr_value)]
     
     model_instance = EmotionClassificationCNN()
-    state = torch.load(weight_save_path, map_location=torch.device('cpu'))
+    state = torch.load(weight_save_path, map_location=torch.device('gpu'))
     model_instance.load_state_dict(state, strict=False)
     model_instance.eval()
     
