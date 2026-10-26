@@ -1,3 +1,4 @@
+import os
 import tkinter as tk
 from tkinter import ttk
 import threading
@@ -37,7 +38,7 @@ p = pyaudio.PyAudio()
 
 def load_model():
     global tokenizer, model, punctuation_pipeline
-    access_token = "" #to complete here manually after requesting a HugginFace token
+    access_token = os.environ.get("HF_TOKEN")  # None: falls back to the `huggingface-cli login` token
     model_id = "meta-llama/Meta-Llama-3-8B-Instruct"
     print("Loading model...")
     tokenizer_local = AutoTokenizer.from_pretrained(model_id, trust_remote_code=True, token=access_token)
