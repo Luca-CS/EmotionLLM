@@ -1,0 +1,4 @@
+-r requirements.txt
+pytest
+librosa          # reference for the MFCC equivalence test and for the evaluation scripts
+matplotlib       # figures of the evaluation report

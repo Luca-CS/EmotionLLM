@@ -1,2 +1,7 @@
 __pycache__/
+.pytest_cache/
 recorded_audio.wav
+build/
+data/
+*.npz
+.venv/
