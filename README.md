@@ -4,9 +4,9 @@ Speak into a microphone: a CNN on MFCCs guesses the emotion of your voice, Whisp
 small language model answers in a tone adapted to that emotion (angry → calm, sad → empathetic, frustrated →
 reassuring...). Built for a CentraleSupélec course project (ST7, March 2025), reworked in October 2026.
 
-**Live demo:** [huggingface.co/spaces/Luca-CS/EmotionLLM](https://huggingface.co/spaces/Luca-CS/EmotionLLM)
-(free CPU Space: it sleeps after 48 hours without a visit and takes a minute or two to wake up; an answer then takes
-10 to 20 seconds).
+**No hosted demo for now.** The app runs locally (see [Run it](#run-it)); a turn takes 7 to 12 seconds on 2 CPU
+threads. Creating a Gradio Space on a free Hugging Face account returned *402 Payment Required* in October 2026, so the
+Space files are ready (`scripts/deploy_space.py`) but not deployed.
 
 The emotion model is weak: on speakers it has never heard it gets **37% of six classes right (chance: 17%)**. Treat the
 label as a hint, and read [Results](#results) and [Limits](#limits) before drawing conclusions.
@@ -118,12 +118,16 @@ the same held-out predictions that the table reports, so the figures of this par
 * **Acted speech.** IEMOCAP actors play scripted or improvised scenes in a studio, in English. Spontaneous speech, other
   languages, laptop microphones and background noise are out of distribution. The augmentation and the normalisation
   help in principle; this was not measured on real recordings.
+* **Confidence out of domain.** Four text-to-speech clips (flat synthetic voices: an angry, a neutral and a sad
+  sentence, and a neutral one in French) were labelled *angry* three times with probabilities of 0.53 to 0.66, above
+  the fallback threshold; the angry sentence came out *frustrated* (0.58). The probabilities are calibrated on IEMOCAP
+  only and say nothing about other kinds of audio. The app has not been tested on real recordings yet.
 * **Labels are subjective**: IEMOCAP annotators disagree with each other, which caps what any model can reach.
 * **The language model does not hear the audio.** It receives the transcript and one tone instruction. A 1.5 billion
   parameter model follows the tone loosely and sometimes answers in the wrong style; Llama 3 8B of the first version
   would do better but does not fit on a free CPU.
-* **Free hosting.** One request at a time, 2 vCPU: an answer takes 10 to 20 seconds, recordings are cut at 30 seconds.
-  The app does not store recordings (Gradio's temporary files are purged every hour), but do not say anything private.
+* **CPU only.** One request at a time; on 2 threads an answer takes 7 to 12 seconds and recordings are cut at 30 seconds.
+  The app does not store recordings (Gradio's temporary files are purged every hour).
 * The voice activity detector is an energy threshold: it is fine for a quiet room, not for noisy speech.
 
 ## Run it
@@ -161,7 +165,7 @@ python scripts/make_figures.py
 `weights/emotion_cnn.pth` carries the network, the MFCC statistics, the preprocessing recipe, the temperature and the
 threshold, so the classifier is rebuilt exactly as it was trained.
 
-## Hugging Face Space
+## Hugging Face Space (ready, not deployed)
 
 `python scripts/deploy_space.py --stage build/space` assembles the Space (code, weights, `space/README.md` as its
 README); `--push USER/SPACE` uploads it with the token saved by `hf auth login` (or `HF_TOKEN`). No secret is needed
